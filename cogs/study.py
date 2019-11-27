@@ -40,6 +40,19 @@ class Study(commands.Cog):
         await ctx.send("\n".join(lines))
 
     @commands.command()
+    async def done(self, ctx, course: str, *, what: str):
+        """!done CS201 assignment 3"""
+        data = load()
+        items = data.get(course.upper(), [])
+        remaining = [i for i in items if i["what"].lower() != what.lower()]
+        if len(remaining) == len(items):
+            await ctx.send("Couldn't find that one 🤔")
+            return
+        data[course.upper()] = remaining
+        save(data)
+        await ctx.send(f"Nice! Removed {course.upper()} {what} ✅")
+
+    @commands.command()
     async def pomodoro(self, ctx, minutes: int = 25):
         await ctx.send(f"⏱ Focus for {minutes} minutes, {ctx.author.mention}!")
         await asyncio.sleep(minutes * 60)
