@@ -1,6 +1,6 @@
 # Study Buddy Bot
 
-Discord bot for our CS study group srever.
+Discord bot for our CS study group server.
 
 ## Setup
 
